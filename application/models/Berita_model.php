@@ -8,6 +8,7 @@ class Berita_model extends CI_Model
 
     public $table = 'berita';
     public $id = 'id_berita';
+    public $url_slug='url_slug';
     public $order = 'DESC';
 
     function __construct()

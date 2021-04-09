@@ -181,6 +181,9 @@ p.blog-desc{
     color: #234969;
     letter-spacing: 0px;
 }
+p.blog-desc-bottom{
+    height: 84px;
+}
 .author a{
 	color: #1f2044;
 	text-decoration: none;
@@ -216,18 +219,31 @@ h5.blog-title{
     margin-bottom: 10px;
     font-weight: 500;
     margin-top: 1rem;
+    min-height: 53px;
 }
-.page-link{
-	color: #f79784;
-	font-weight: 500;
-	font-size: 20px;
+.pagination{
 	border: none;
+    justify-content:center;
+    margin-bottom: 30px;
 }
-.page-link:hover{
+.pagination li a{
+    color: #f79784;
+    font-weight: 500;
+    font-size: 20px;
+    border: none;
+    justify-content:center;
+    margin-right: 15px;
+}
+.pagination li a:hover{
 	color: #1f2044;
+    text-decoration: none;
 	background: none;
 }
-.page-link:focus{
+.pagination li.active{
+    color: #1f2044;
+    background: none;
+}
+.pagination:focus{
 	box-shadow: none;
 	color: #1f2044;
 }
@@ -385,7 +401,7 @@ h4.side-title {
     box-shadow: none;
     resize: none;
 }
-.input-grids input.form-control, .leave-comment-form textarea.form-control {
+.input-grids input.form-control, .leave-comment-form textarea.form-control ,input#captcha{
     width: 100%;
     color: #234969;
     background: #f4f4f4;
@@ -415,4 +431,13 @@ h4.side-title {
     height: 150px;
     width: 150px;
     object-fit: cover;
+}
+#carouselBlog .carousel-indicators{
+    bottom: -25px;
+}
+img.img-fluid.rounded-lg {
+    height: 400px;
+}
+img.blog-image{
+    height: 300px;
 }

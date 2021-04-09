@@ -55,3 +55,14 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['blog']='blog';
 $route['blog_single']='blog_single';
+
+$route['databerita'] = 'tbl_berita';
+$route['databerita/create'] = 'tbl_berita/create';
+$route['databerita/update/(:any)'] = 'tbl_berita/update/$1';
+
+$route['datakomentar'] = 'tbl_komentar';
+$route['datakomentar/create'] = 'tbl_komentar/create';
+$route['datakomentar/create_action/(:any)'] = 'blog/read/$1';
+$route['datakomentar/update/(:any)'] = 'tbl_komentar/update/$1';
+
+$route['(:any)'] = 'blog/read/$1';

@@ -23,3 +23,8 @@ $(document).ready(function() {
         }, 500);
     });
 });
+
+function replyBtn(id) {
+  document.getElementById(id).style.display = "block";
+  document.getElementsByClassName('form-balas').style.display="none";
+}

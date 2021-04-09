@@ -399,91 +399,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</div>
 			<div id="carouselBlog" class="carousel slide" data-ride="carousel" data-interval="7000">
 				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<div class="row">
-							<div class="col-lg-6 blog-image">
-								<a href="#">
-									<img src="<?php echo base_url('assets/images/blog1.jpg') ?>" alt="" class="img-fluid rounded-lg">
-								</a>
-							</div>
-							<div class="col-lg-6 blog-info">
-								<a href="#" class="text-decoration-none">
-									<h6 class="blog-title">Welcome to WordPress. This is your first post. Edit or delete it.</h6>
-								</a>
-								<p class ="blog-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos blanditiis, odit non
-									asperiores
-									possimus voluptas sit nihil nam id explicabo saepe sapiente excepturi similique, dicta
-									officia odio natus nemo. Ratione ipsa distinctio explicabo esse quod autem
-								veritatis, in fugit odio.</p>
-								<div class="author align-items-center mt-4 mb-1">
-									<a href="author.html">Mike Tyson</a> 
-									in 
-									<a href="#url">Html Design</a>
-									<p><span class="text-muted h6">July 20, 2020</span></p>
+					<?php 
+					$counter=1;
+					foreach ($tbl_berita_data as $tbl_berita) { ?>
+						<div class="carousel-item <?php if($counter <= 1){echo " active"; } ?>">
+							<div class="row">
+								<div class="col-lg-6 blog-image mb-4">
+									<a href="<?php echo base_url() ?><?php echo $tbl_berita->url_slug ?>">
+										<img src="<?php echo base_url('assets/berita/') ?><?php echo $tbl_berita->foto ?>" alt="" class="img-fluid rounded-lg">
+									</a>
+								</div>
+								<div class="col-lg-6 blog-info">
+									<a href="<?php echo base_url() ?><?php echo $tbl_berita->url_slug ?>" class="text-decoration-none">
+										<h6 class="blog-title"><?php echo $tbl_berita->judul_berita ?></h6>
+									</a>
+									<p class ="blog-desc"><?php echo substr($tbl_berita->desk,0,500) ?>...</p>
+									<div class="author align-items-center mt-4 mb-1">
+										<a href="author.html">Mike Tyson</a> 
+										in 
+										<a href="#url">Html Design</a>
+										<p><span class="text-muted h6"><?php echo date("F d, Y", strtotime(substr($tbl_berita->tgl_input,0,10)));; ?></span></p>
+									</div>
 								</div>
 							</div>
+							</div><?php $counter++;} ?>
+							<ol class="carousel-indicators mt-4">
+								<li data-target="#carouselBlog" data-slide-to="0" class="active"></li>
+								<li data-target="#carouselBlog" data-slide-to="1"></li>
+								<li data-target="#carouselBlog" data-slide-to="2"></li>
+							</ol>
 						</div>
-					</div>
-					<div class="carousel-item">
-						<div class="row">
-							<div class="col-lg-6 blog-image">
-								<a href="#">
-									<img src="<?php echo base_url('assets/images/blog2.jpg') ?>" alt="" class="img-fluid rounded-lg">
-								</a>
-							</div>
-							<div class="col-lg-6 blog-info">
-								<a href="#" class="text-decoration-none">
-									<h6 class="blog-title">What Else you need to reach the next level of Blogging
-									</h6>
-								</a>
-								<p class ="blog-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos blanditiis, odit non
-									asperiores
-									possimus voluptas sit nihil nam id explicabo saepe sapiente excepturi similique, dicta
-									officia odio natus nemo. Ratione ipsa distinctio explicabo esse quod autem
-								veritatis, in fugit odio.</p>
-								<div class="author align-items-center mt-4 mb-1">
-									<a href="author.html">Johnson Smith</a> 
-									in 
-									<a href="#url">Design</a>
-									<p><span class="text-muted h6">July 20, 2020</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<div class="row">
-							<div class="col-lg-6 blog-image">
-								<a href="#">
-									<img src="<?php echo base_url('assets/images/blog3.jpg') ?>" alt="" class="img-fluid rounded-lg">
-								</a>
-							</div>
-							<div class="col-lg-6 blog-info">
-								<a href="#" class="text-decoration-none">
-									<h6 class="blog-title">How to select a great domain name for your Business
-									</h6>
-								</a>
-								<p class ="blog-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos blanditiis, odit non
-									asperiores
-									possimus voluptas sit nihil nam id explicabo saepe sapiente excepturi similique, dicta
-									officia odio natus nemo. Ratione ipsa distinctio explicabo esse quod autem
-								veritatis, in fugit odio.</p>
-								<div class="author align-items-center mt-4 mb-1">
-									<a href="author.html">Johnson Smith</a> 
-									in 
-									<a href="#url">Design</a>
-									<p><span class="text-muted h6">July 20, 2020</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<ol class="carousel-indicators position-relative mt-4">
-					<li data-target="#carouselBlog" data-slide-to="0" class="active"></li>
-					<li data-target="#carouselBlog" data-slide-to="1"></li>
-					<li data-target="#carouselBlog" data-slide-to="2"></li>
-				</ol>
-			</div>
-		</section>
+					</section>
 
 		<section class="contact py-5" id="contact">
 			<div class="container">
