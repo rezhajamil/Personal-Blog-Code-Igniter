@@ -50,15 +50,15 @@
 						<div class="carousel-item <?php if($counter <= 1){echo " active"; } ?>">
 							<div class="row">
 								<div class="col-lg-6 blog-image mb-4">
-									<a href="<?php echo base_url() ?><?php echo $tbl_berita->url_slug ?>">
+									<a href="<?php echo base_url() ?>blog/<?php echo $tbl_berita->url_slug ?>">
 										<img src="<?php echo base_url('assets/berita/') ?><?php echo $tbl_berita->foto ?>" alt="" class="img-fluid rounded-lg">
 									</a>
 								</div>
 								<div class="col-lg-6 blog-info">
-									<a href="<?php echo base_url() ?><?php echo $tbl_berita->url_slug ?>" class="text-decoration-none">
+									<a href="<?php echo base_url() ?>blog/<?php echo $tbl_berita->url_slug ?>" class="text-decoration-none">
 										<h6 class="blog-title"><?php echo $tbl_berita->judul_berita ?></h6>
 									</a>
-									<p class ="blog-desc"><?php echo substr($tbl_berita->desk,0,500) ?>...</p>
+									<p class ="blog-desc"><?php echo substr($tbl_berita->desk,0,400) ?>...</p>
 									<div class="author align-items-center mt-4 mb-1">
 										<a href="author.html">Mike Tyson</a> 
 										in 
@@ -78,6 +78,11 @@
 
 					<section class="blog-block mt-lg-4 mb-1">
 						<div class="container pb-lg-5">
+							<div class="buttons-singles tags text-capitalize">
+							<h4>Tags :</h4>
+							<?php $q = urldecode($this->input->get('tag', TRUE)); ?>
+								<a href="#"><?php if($q){echo $q;} else {echo 'All Blog';} ?></a>
+							</div>
 							<div class="row">
 								<?php foreach ($tbl_berita_data as $tbl_berita) { ?>
 									<div class="col-lg-4 col-md-6 mt-lg-5">
@@ -85,8 +90,8 @@
 											<img src="<?php echo base_url('assets/berita/') ?><?php echo $tbl_berita->foto ?>" class="card-img-top blog-image">
 											<div class="card-body p-0">
 												<h5 class="blog-title blog-title-sm"><?php echo $tbl_berita->judul_berita; ?></h5>
-												<p class="blog-desc blog-desc-bottom"><?php echo substr($tbl_berita->desk,0,100); ?> ...</p>
-												<a href="<?php echo base_url() ?><?php echo $tbl_berita->url_slug ?>" class="btn btn-tersier mt-3 ">Read More</a>
+												<p class="blog-desc blog-desc-bottom"><?php echo substr($tbl_berita->desk,0,50); ?> ...</p>
+												<a href="<?php echo base_url() ?>blog/<?php echo $tbl_berita->url_slug ?>" class="btn btn-tersier mt-3 ">Read More</a>
 											</div>
 										</div>
 									</div>
@@ -104,7 +109,7 @@
 
 					<div class="copyright py-sm-5 py-4 text-center">
 						<div class="container">
-							<p class="copy-footer-29">© 2021 Eko Surya All rights reserved
+							<p class="copy-footer-29">© <?php echo date('Y') ?> Eko Surya All rights reserved
 							</div>
 						</div>
 

@@ -38,15 +38,15 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo site_url('admin/jurusan')?>" class="nav-link hover">
+                <a href="<?php echo site_url('tbl_komentar')?>" class="nav-link hover">
                   <i class="nav-icon fas fa-file"></i>
-                  <p>Jurusan</p>
+                  <p>Komentar</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo site_url('admin/prodi')?>" class="nav-link hover">
+                <a href="<?php echo site_url('tbl_kontak')?>" class="nav-link hover">
                   <i class="nav-icon fas fa-file"></i>
-                  <p>Prodi</p>
+                  <p>Kontak</p>
                 </a>
               </li>
             </ul>

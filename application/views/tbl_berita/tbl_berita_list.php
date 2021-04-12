@@ -55,13 +55,15 @@
 											<?php echo $tbl_berita->judul_berita ?>
 										</td>
 										<td>
-											<?php echo $tbl_berita->desk ?>
+											<?php echo substr($tbl_berita->desk,0,100) ?>
 										</td>
 										<td>
-											<?php echo substr($tbl_berita->berita,0,100) ?>
+											<?php echo substr($tbl_berita->berita,0,300) ?>
 										</td>
-										<td>
+										<td><a href="<?php echo site_url('databerita/update_foto/'.$tbl_berita->id_berita) ?>">
 											<img style="width:100px;"  class="img-responsive" src="<?php echo base_url(); ?>assets/berita/<?php echo $tbl_berita->foto ?>">
+											</a>
+											
 										</td>
 										<td>
 											<?php 

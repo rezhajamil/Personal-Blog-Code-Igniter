@@ -65,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<?php echo $berita; ?>
 					<!-- Tags -->
 					<div class="d-grid left-right mt-5 pb-md-5">
-						<div class="buttons-singles tags">
+						<div class="buttons-singles tags text-capitalize">
 							<h4>Tags :</h4>
 							<?php $tag= explode(",",$tags); foreach ($tag as $tag) {?>
 								<a href="<?php echo base_url('blog?tag='.$tag) ?>">
@@ -73,10 +73,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div>
 								<div class="buttons-singles">
 									<h4>Share :</h4>
-									<a href="https://www.facebook.com/sharer/sharer.php?u=#url" target="_blank"><span class="bi bi-facebook" aria-hidden="true"></span></a>
-									<a href="#blog-share"><span class="bi bi-twitter" aria-hidden="true"></span></a>
-									<a href="#blog-share"><span class="bi bi-linkedin" aria-hidden="true"></span></a>
-									<a href="#blog-share"><span class="bi bi-instagram" aria-hidden=" true"></span></a>
+									<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(base_url()) ?><?php echo urlencode($url_slug)  ?>" target="_blank"><span class="bi bi-facebook" aria-hidden="true"></span></a>
+									<a href="http://twitter.com/share?url=<?php echo urlencode(base_url()) ?><?php echo urlencode($url_slug)  ?>"><span class="bi bi-twitter" aria-hidden="true" target="_blank"></span></a>
+									<a href="whatsapp://send?text=<?php echo urlencode(base_url()) ?><?php echo urlencode($url_slug)  ?>" data-action="share/whatsapp/share" target="_blank"><span class="bi bi-whatsapp" aria-hidden=" true"></span></a>
 								</div>
 							</div>
 							<!-- Author -->
@@ -93,11 +92,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											Distinctio fugit odit? Fugit ipsam. Lorem ipsum dolor sit.
 										</p>
 										<ul class="author-icons mt-4 p-0">
-											<li><a class="instagram" href="#url"><span class="bi bi-instagram" aria-hidden="true"></span></a> </li>
-											<li><a class="linkedin" href="#url"><span class="bi bi-linkedin" aria-hidden="true"></span></a></li>
-											<li><a class="facebook" href="#url"><span class="fa bi bi-facebook" aria-hidden="true"></span></a>
+											<li><a class="instagram" href="https://www.instagram.com/ekosurya_id/" target="_blank"><span class="bi bi-instagram" aria-hidden="true"></span></a> </li>
+											<li><a class="facebook" href="https://web.facebook.com/ekosurya.id/" target="_blank"><span class="fa bi bi-facebook" aria-hidden="true"></span></a>
 											</li>
-											<li><a class="twitter" href="#url"><span class="bi bi-twitter" aria-hidden="true"></span></a></li>
+											<li><a class="whatsapp" href="http://wa.me/6285765344445" target="_blank"><span class="bi bi-whatsapp" aria-hidden="true"></span></a></li>
 										</ul>
 									</div>
 								</div>
@@ -108,8 +106,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<!-- Comment -->
 								<?php
 								$id_berita =  $id_berita;
-								$query = $this->db->query("SELECT * FROM tbl_komentar WHERE id_parent_komen='0' AND id_berita = '$id_berita'");
-								foreach ($query->result() as $utama):
+								$query=$this->Tbl_komentar_model->get_by_id_parent('0',$id_berita);
+								foreach ($query as $utama):
 									?>
 									<div class="media mt-4">
 										<div class="img-circle">
@@ -130,8 +128,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<?php
 											$id_berita = $id_berita;
 											$id_komen=$utama->id_komen;
-											$query = $this->db->query("SELECT * FROM tbl_komentar WHERE id_parent_komen='$id_komen' AND id_berita = '$id_berita'");
-											foreach ($query->result() as $balasan):
+											$query=$this->Tbl_komentar_model->get_by_id_parent($id_komen,$id_berita);
+											foreach ($query as $balasan):
 												?>
 												<div class="media second mt-4 p-0 pt-2">
 													<a class="img-circle img-circle-sm" href="#url">
@@ -156,7 +154,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										<h4 class="side-title mb-2">Reply Comment</h4>
 										<p class="mb-4">Your email address will not be published. Required fields are marked *
 										</p>
-										<form action="<?php echo site_url('blog/balas');?>
+										<form action="<?php echo base_url('tbl_komentar/create_action');?>
 										" method="post" id="form_komen">
 
 										<div class="form-group">
@@ -177,7 +175,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<input type="text" class="form-control" name="captcha" id="captcha" placeholder="Kode Validasi" data-rule="captcha"  />
 											<input type="hidden" name="id_berita" value="<?php echo $id_berita ?>" id="berita_id">
 											<input type="hidden" name="url_slug" value="<?php echo $url_slug ?>" id="url_slug">
-											<input type="hidden" name="id_komen" id="komentar_id" value="<?php echo $utama->id_komen ?>" >
+											<input type="hidden" name="id_parent_komen" id="komentar_id" value="<?php echo $utama->id_komen ?>" >
+											<input type="hidden" name="id_komen" id="komentar_id" >
 										</div>
 										<div class="submit text-right">
 											<button class="btn btn-quartener p-3 px-5 text-white">Post Comment </button></div>
@@ -187,11 +186,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								endforeach; ?>
 
 								<!-- Comment Form -->
-								<div class="leave-comment-form mt-5 form_kirim" id="reply">
+								<div class="leave-comment-form mt-5 form_kirim" id="comment">
 									<h4 class="side-title mb-2">Send a Comment</h4>
 									<p class="mb-4">Your email address will not be published. Required fields are marked *
 									</p>
-									<form action="<?php echo site_url('blog/kirim');?>
+									<form action="<?php echo base_url('tbl_komentar/create_action');?>
 									" method="post" id="form_komen">
 
 									<div class="form-group">
@@ -213,6 +212,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										<input type="hidden" name="id_berita" value="<?php echo $id_berita ?>" id="berita_id">
 										<input type="hidden" name="url_slug" value="<?php echo $url_slug ?>" id="url_slug">
 										<input type="hidden" name="id_komen" id="komentar_id" >
+										<input type="hidden" name="id_parent_komen" id="komentar_id" value="0" >
 									</div>
 									<div class="submit text-right">
 										<button class="btn btn-quartener p-3 px-5 text-white">Post Comment </button>
@@ -227,11 +227,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<?php foreach($tbl_berita_data as $tbl_berita) { ?>
 									<div class="col-lg-6">
 										<div class="grids5-info">
-											<a href="<?php echo base_url() ?><?php echo $tbl_berita->url_slug ?>">
+											<a href="<?php echo base_url() ?>blog/<?php echo $tbl_berita->url_slug ?>">
 												<img src="<?php echo base_url('assets/berita/') ?><?php echo $tbl_berita->foto ?>" alt="" class="img-fluid rounded-lg">
 											</a>
 											<div class="blog-info align-self-center">
-												<a href="<?php echo base_url() ?><?php echo $tbl_berita->url_slug ?>" class="text-decoration-none">
+												<a href="<?php echo base_url() ?>blog/<?php echo $tbl_berita->url_slug ?>" class="text-decoration-none">
 													<h5 class="blog-title"><?php echo $tbl_berita->judul_berita ?></h5>
 												</a>
 												<div class="author align-items-center mt-4 mb-1">
@@ -253,7 +253,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<!-- Footer -->
 			<div class="copyright py-sm-5 py-4 text-center">
 				<div class="container">
-					<p class="copy-footer-29">© 2021 Eko Surya All rights reserved
+					<p class="copy-footer-29">© <?php echo date('Y') ?> Eko Surya All rights reserved
 					</div>
 				</div>
 

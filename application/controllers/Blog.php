@@ -8,6 +8,7 @@ class Blog extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Tbl_berita_model');
 		$this->load->model('Tbl_komentar_model');
+		$this->load->helper( array('string', 'text'));
 
 	}
 
@@ -46,9 +47,9 @@ class Blog extends CI_Controller {
 
 	public function read($url_slug) 
 	{
-		$tbl_berita = $this->Tbl_berita_model->get_limit_2($url_slug);
 		$tbl_berita_detail = $this->Tbl_berita_model->get_by_url_slug($url_slug);
-		if ($tbl_berita) {
+		$tbl_berita = $this->Tbl_berita_model->get_limit_2($url_slug);
+		if ($tbl_berita_detail) {
 			$data = array(
 
 				'img_path'      => './assets/captcha/',
@@ -105,7 +106,7 @@ class Blog extends CI_Controller {
         $isi_komentar   = $this->input->post('komen');
         $captcha  	 	= $this->input->post('captcha');
         $this->db->query("INSERT INTO tbl_komentar VALUES('','0','$id','$email','$nama','$isi_komentar','$captcha',current_timestamp(),'tampil')");
-        redirect($url_slug); 
+        redirect(site_url('blog/'.$url_slug)); 
     } 
 
     public function balas() {
@@ -117,6 +118,6 @@ class Blog extends CI_Controller {
         $isi        = $this->input->post('komen');
         $captcha  	= $this->input->post('captcha');
         $this->db->query("INSERT INTO tbl_komentar VALUES('','$comment_id','$id_berita','$email','$nama','$isi','$captcha',current_timestamp(),'tampil')");
-        redirect($url_slug); 
+        redirect(site_url('blog/'.$url_slug)); 
     }
 }

@@ -28,7 +28,7 @@ class Tbl_komentar extends CI_Controller
         $config['per_page'] = 10;
         $config['page_query_string'] = TRUE;
         $config['total_rows'] = $this->Tbl_komentar_model->total_rows($q);
-        $tbl_komentar = $this->Tbl_komentar_model->get_limit_data($config['per_page'], $start, $q);
+        $tbl_komentar = $this->Tbl_komentar_model->get_join_data($config['per_page'], $start, $q);
 
         $this->load->library('pagination');
         $this->pagination->initialize($config);
@@ -97,13 +97,11 @@ class Tbl_komentar extends CI_Controller
 		'nama' => $this->input->post('nama',TRUE),
 		'komen' => $this->input->post('komen',TRUE),
 		'captcha' => $this->input->post('captcha',TRUE),
-		'tgl_input' => $this->input->post('tgl_input',TRUE),
-		'status' => $this->input->post('status',TRUE),
 	    );
-
+            $url_slug=$this->input->post('url_slug');
             $this->Tbl_komentar_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('tbl_komentar'));
+            redirect(site_url('blog/'.$url_slug));
         }
     }
     
@@ -172,14 +170,14 @@ class Tbl_komentar extends CI_Controller
 
     public function _rules() 
     {
-	$this->form_validation->set_rules('id_parent_komen', 'id parent komen', 'trim|required');
-	$this->form_validation->set_rules('id_berita', 'id berita', 'trim|required');
-	$this->form_validation->set_rules('email', 'email', 'trim|required');
-	$this->form_validation->set_rules('nama', 'nama', 'trim|required');
-	$this->form_validation->set_rules('komen', 'komen', 'trim|required');
-	$this->form_validation->set_rules('captcha', 'captcha', 'trim|required');
-	$this->form_validation->set_rules('tgl_input', 'tgl input', 'trim|required');
-	$this->form_validation->set_rules('status', 'status', 'trim|required');
+	$this->form_validation->set_rules('id_parent_komen', 'id parent komen', 'trim');
+	$this->form_validation->set_rules('id_berita', 'id berita', 'trim');
+	$this->form_validation->set_rules('email', 'email', 'trim');
+	$this->form_validation->set_rules('nama', 'nama', 'trim');
+	$this->form_validation->set_rules('komen', 'komen', 'trim');
+	$this->form_validation->set_rules('captcha', 'captcha', 'trim');
+	$this->form_validation->set_rules('tgl_input', 'tgl input', 'trim');
+	$this->form_validation->set_rules('status', 'status', 'trim');
 
 	$this->form_validation->set_rules('id_komen', 'id_komen', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

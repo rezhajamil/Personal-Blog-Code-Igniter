@@ -256,6 +256,13 @@ h5.blog-title{
 	max-width: 850px;
     margin: auto;
 }
+.single-post-content a{
+    color: #234969;
+}
+.single-post-content a:hover{
+    color: #75a9d6;
+    text-decoration: none;
+}
 .text-list ol li{
 	font-size: 18px;
     line-height: 26px;

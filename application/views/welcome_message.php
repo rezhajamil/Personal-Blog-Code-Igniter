@@ -405,15 +405,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<div class="carousel-item <?php if($counter <= 1){echo " active"; } ?>">
 							<div class="row">
 								<div class="col-lg-6 blog-image mb-4">
-									<a href="<?php echo base_url() ?><?php echo $tbl_berita->url_slug ?>">
+									<a href="<?php echo base_url() ?>blog/<?php echo $tbl_berita->url_slug ?>">
 										<img src="<?php echo base_url('assets/berita/') ?><?php echo $tbl_berita->foto ?>" alt="" class="img-fluid rounded-lg">
 									</a>
 								</div>
 								<div class="col-lg-6 blog-info">
-									<a href="<?php echo base_url() ?><?php echo $tbl_berita->url_slug ?>" class="text-decoration-none">
+									<a href="<?php echo base_url() ?>blog/<?php echo $tbl_berita->url_slug ?>" class="text-decoration-none">
 										<h6 class="blog-title"><?php echo $tbl_berita->judul_berita ?></h6>
 									</a>
-									<p class ="blog-desc"><?php echo substr($tbl_berita->desk,0,500) ?>...</p>
+									<p class ="blog-desc"><?php echo substr($tbl_berita->desk,0,400) ?>...</p>
 									<div class="author align-items-center mt-4 mb-1">
 										<a href="author.html">Mike Tyson</a> 
 										in 
@@ -449,27 +449,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</p>
 						<ul class="address mt-md-5 mt-4 list-unstyled">
 							<li class="mb-3">
-								<p><i class="bi bi-telephone-fill pr-2"></i> <a href="tel:+404-11-22-89" class="text-sekunder">+1-2345-345-678-11</a></p>
+								<p><i class="bi bi-telephone-fill pr-2"></i> <a href="tel:+6285765344445" class="text-sekunder">0857-6534-4445</a></p>
 							</li>
 							<li class="mb-4">
-								<p><i class="bi bi-envelope-fill pr-2"></i> <a href="mailto:design@portfolio.com" class="text-sekunder">design@portfolio.com</a></p>
+								<p><i class="bi bi-envelope-fill pr-2"></i> <a href="mailto:hi@ekosurya.id" class="text-sekunder">hi@ekosurya.id</a></p>
 							</li>
 							<li class="">
-								<p><i class="bi bi-geo-alt-fill pr-2"></i> #135 block, Barnard St. Brooklyn, <br>London 10036, UK.</p>
+								<p><i class="bi bi-geo-alt-fill pr-2"></i>  Jl Besar Tj Anom, Perum Griya Sembada 2, No 5, <br>Medan, Sumatera Utara.</p>
 							</li>
 						</ul>
 					</div>
 					<div class="col-lg-7 mt-lg-0 mt-md-5 mt-4">
-						<form action="" method="post" class="form-group">
+						<form action="<?php echo site_url('tbl_kontak/create_action')?>" method="post" class="form-group">
 							<div class="row">
-								<input type="text" class="form-control mb-4 mr-auto p-4 col-md-5" name="Name" id="Name" placeholder="Name" required="">
-								<input type="email" class="form-control mb-4 p-4 col-md-6" name="Sender" id="Sender" placeholder="Email" required="">
+								<input type="text" class="form-control mb-4 mr-auto p-4 col-md-5" name="nama" id="Name" placeholder="Name" required="">
+								<input type="email" class="form-control mb-4 p-4 col-md-6" name="email" id="Sender" placeholder="Email" required="">
 							</div>
 							<div class="row">
-								<input type="text" class="form-control mb-4 p-4" name="Subject" id="Subject" placeholder="Subject" required="">
+								<input type="text" class="form-control mb-4 p-4" name="subjek" id="Subject" placeholder="Subject" required="">
 							</div>
 							<div class="row">
-								<textarea name="Message" class="form-control p-4" id="Message" placeholder="Message" required=""></textarea>
+								<textarea name="pesan" class="form-control p-4" id="Message" placeholder="Message" required=""></textarea>
 							</div>
 
 							<div class="text-right">
@@ -483,7 +483,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		<div class="copyright py-sm-5 py-4 text-center">
 			<div class="container">
-				<p class="copy-footer-29">© 2021 Eko Surya All rights reserved
+				<p class="copy-footer-29">© <?php echo date('Y'); ?> Eko Surya All rights reserved
 				</div>
 			</div>
 

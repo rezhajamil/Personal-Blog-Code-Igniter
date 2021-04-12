@@ -26,5 +26,5 @@ $(document).ready(function() {
 
 function replyBtn(id) {
   document.getElementById(id).style.display = "block";
-  document.getElementsByClassName('form-balas').style.display="none";
+  document.getElementById('comment').style.display="none";
 }

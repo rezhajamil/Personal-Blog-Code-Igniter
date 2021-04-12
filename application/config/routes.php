@@ -59,10 +59,16 @@ $route['blog_single']='blog_single';
 $route['databerita'] = 'tbl_berita';
 $route['databerita/create'] = 'tbl_berita/create';
 $route['databerita/update/(:any)'] = 'tbl_berita/update/$1';
+$route['databerita/update_foto/(:any)'] = 'tbl_berita/update_foto/$1';
+$route['databerita/update_foto_action'] = 'tbl_berita/update_foto_action';
 
 $route['datakomentar'] = 'tbl_komentar';
 $route['datakomentar/create'] = 'tbl_komentar/create';
 $route['datakomentar/create_action/(:any)'] = 'blog/read/$1';
 $route['datakomentar/update/(:any)'] = 'tbl_komentar/update/$1';
 
-$route['(:any)'] = 'blog/read/$1';
+$route['datakontak'] = 'tbl_kontak';
+$route['datakontak/create'] = 'tbl_kontak/create';
+$route['datakontak/update/(:any)'] = 'tbl_kontak/update/$1';
+
+$route['blog/(:any)'] = 'blog/read/$1';

@@ -75,8 +75,6 @@ class Tbl_berita extends CI_Controller
 	    'desk' => set_value('desk'),
 	    'berita' => set_value('berita'),
 	    'foto' => set_value('foto'),
-	    'tgl_input' => set_value('tgl_input'),
-	    'tgl_update' => set_value('tgl_update'),
 	    'url_slug' => set_value('url_slug'),
 	    'tags' => set_value('tags'),
 	);
@@ -133,10 +131,10 @@ class Tbl_berita extends CI_Controller
 		'id_berita' => set_value('id_berita', $row->id_berita),
 		'judul_berita' => set_value('judul_berita', $row->judul_berita),
 		'desk' => set_value('desk', $row->desk),
-		'berita' => set_value('berita', $row->berita),
+		'berita' => set_value('berita', $row->berita),/*
 		'foto' => set_value('foto', $row->foto),
 		'tgl_input' => set_value('tgl_input', $row->tgl_input),
-		'tgl_update' => set_value('tgl_update', $row->tgl_update),
+		'tgl_update' => set_value('tgl_update', $row->tgl_update),*/
 		'url_slug' => set_value('url_slug', $row->url_slug),
 		'tags' => set_value('tags', $row->tags),
 	    );
@@ -154,28 +152,14 @@ class Tbl_berita extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_berita', TRUE));
         } else {
-          $config['upload_path']          = 'assets/berita/';
-          $config['allowed_types']        = 'gif|jpg|png|jpeg';
-          $config['max_size']             = 10000;
-          $config['max_width']            = 2000;
-          $config['max_height']           = 2000;
 
-          $this->load->library('upload', $config);
-          $this->upload->initialize($config);
-
-          if ( $this->upload->do_upload('foto')) {
-
-
-          // deklarasi nama file dan di ambil dari field file foto
-            $upload_data = $this->upload->data();
-            $nama_file = $upload_data['file_name'];
             $data = array(
 		'judul_berita' => $this->input->post('judul_berita',TRUE),
 		'desk' => $this->input->post('desk',TRUE),
 		'berita' => $this->input->post('berita',TRUE),
-		'foto' => $nama_file,
 		'url_slug' => $this->input->post('url_slug',TRUE),
 		'tags' => $this->input->post('tags',TRUE),
+        'tgl_update' => date('Y-m-d H:i:s')
 	    );
 
             $this->Tbl_berita_model->update($this->input->post('id_berita', TRUE), $data);
@@ -183,7 +167,6 @@ class Tbl_berita extends CI_Controller
             redirect(site_url('tbl_berita'));
         }
     }
-}
     
     public function delete($id) 
     {
@@ -207,6 +190,66 @@ class Tbl_berita extends CI_Controller
             $filename = explode(".", $row->foto)[0];
             return array_map('unlink', glob(FCPATH."assets/berita/$filename.*"));
         }
+    }
+
+    public function update_foto($id) 
+    {
+      $row = $this->Tbl_berita_model->get_by_id($id);
+
+      if ($row) {
+        $data = array(
+          'button' => 'Update Foto',
+          'action' => site_url('databerita/update_foto_action'),
+          'id_berita' => set_value('id_berita', $row->id_berita),
+          'judul_berita' => set_value('judul_berita', $row->judul_berita),
+          'foto' => set_value('foto', $row->foto)
+        );
+        $this->load->view('tbl_berita/update_foto', $data);
+        }   
+        else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('databerita'));
+        }
+    }   
+
+
+    public function update_foto_action() 
+    {
+
+     $config['upload_path']          = './assets/berita/';
+     $config['allowed_types']        = 'gif|jpg|png|jpeg';
+     $config['max_size']             = 10000;
+     $config['max_width']            = 2000;
+     $config['max_height']           = 2000;
+
+     $this->load->library('upload', $config);
+     $this->upload->initialize($config);
+
+     if ( $this->upload->do_upload('foto')) {
+      $upload_data = $this->upload->data();
+      $nama_file = $upload_data['file_name'];
+
+      $data = array(
+        'foto' => $nama_file,
+    );
+
+      $this->Tbl_berita_model->update($this->input->post('id_berita', TRUE), $data);
+      $this->session->set_flashdata('message', 'Update Foto Success');
+      redirect(site_url('databerita'));
+    } else {
+
+      $row = $this->Tbl_berita_model->get_by_id($this->input->post('id_berita', TRUE));
+
+      $data = array(
+        'button' => 'Update Foto',
+        'action' => site_url('databerita/update_foto_action'),
+        'id_berita' => set_value('id_berita', $row->id_berita),
+        'judul_berita' => set_value('judul_berita', $row->judul_berita),
+        'foto' => set_value('foto', $row->foto)
+    );
+      $this->session->set_flashdata('message', 'Error'.$this->upload->display_errors());
+      $this->load->view('tbl_berita', $data);
+    }
     }
 
     public function _rules() 

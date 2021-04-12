@@ -1,93 +1,124 @@
-<!doctype html>
-<html>
-    <head>
-        <title>harviacode.com - codeigniter crud generator</title>
-        <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>"/>
-        <style>
-            body{
-                padding: 15px;
-            }
-        </style>
-    </head>
-    <body>
-        <h2 style="margin-top:0px">Tbl_komentar List</h2>
-        <div class="row" style="margin-bottom: 10px">
-            <div class="col-md-4">
-                <?php echo anchor(site_url('tbl_komentar/create'),'Create', 'class="btn btn-primary"'); ?>
-            </div>
-            <div class="col-md-4 text-center">
-                <div style="margin-top: 8px" id="message">
-                    <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
-                </div>
-            </div>
-            <div class="col-md-1 text-right">
-            </div>
-            <div class="col-md-3 text-right">
-                <form action="<?php echo site_url('tbl_komentar/index'); ?>" class="form-inline" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
-                        <span class="input-group-btn">
-                            <?php 
-                                if ($q <> '')
-                                {
-                                    ?>
-                                    <a href="<?php echo site_url('tbl_komentar'); ?>" class="btn btn-default">Reset</a>
-                                    <?php
-                                }
-                            ?>
-                          <button class="btn btn-primary" type="submit">Search</button>
-                        </span>
+<!DOCTYPE html>
+<html lang="en">
+<!-- DataTables -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>">
+<head>
+    <?php $this->load->view("admin/_partials/head.php") ?>
+</head>
+
+<body class="hold-transition sidebar-mini sidebar-collapse">
+
+    <?php $this->load->view("admin/_partials/navbar.php") ?>
+    <div id="wrapper">
+
+        <?php $this->load->view("admin/_partials/sidebar.php") ?>
+
+        <div id="content-wrapper">
+
+            <div class="container-fluid">
+
+                <?php $this->load->view("admin/_partials/breadcrumb.php") ?>
+
+                <!-- DataTables -->
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Data Berita</h4>
+                        <a class="btn bg-gradient-success" href="<?php echo site_url('tbl_komentar/create') ?>"><i class="fas fa-plus"></i> Data Baru</a>
                     </div>
-                </form>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="table_berita" class="table table-bordered table-hover" >
+                                <thead class="bg-gradient-info">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Id Komentar</th>
+                                        <th>Id Parent Komentar</th>
+                                        <th>URL SLug Berita</th>
+                                        <th>Email</th>
+                                        <th>Nama</th>
+                                        <th>Komentar</th>
+                                        <th>Tanggal Input</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i=1;foreach ($tbl_komentar_data as $tbl_komentar): 
+
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $i++ ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $tbl_komentar->id_komen ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $tbl_komentar->id_parent_komen ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $tbl_komentar->url_slug ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $tbl_komentar->email ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $tbl_komentar->nama ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $tbl_komentar->komen ?>
+                                        </td>
+                                        <td>
+                                            <?php 
+                                                echo substr($tbl_komentar->tgl_input,0,10)
+                                            ?>
+                                        </td>
+                                        <td width="250">
+                                            <a href="<?php echo site_url('tbl_komentar/update/'.$tbl_komentar->id_komen) ?>"
+                                             class="btn btn-sm bg-gradient-primary"><i class="fas fa-edit"></i> Edit</a>
+                                            <a onclick="deleteConfirm('<?php echo site_url('tbl_komentar/delete/'.$tbl_komentar->id_komen) ?>')"
+                                             href="#!" class="btn btn-sm text-danger"><i class="fas fa-trash"></i> Hapus</a>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+            <!-- /.container-fluid -->
+
+            <!-- Sticky Footer -->
+            <?php $this->load->view("admin/_partials/footer.php") ?>
+
         </div>
-        <table class="table table-bordered" style="margin-bottom: 10px">
-            <tr>
-                <th>No</th>
-		<th>Id Parent Komen</th>
-		<th>Id Berita</th>
-		<th>Email</th>
-		<th>Nama</th>
-		<th>Komen</th>
-		<th>Captcha</th>
-		<th>Tgl Input</th>
-		<th>Status</th>
-		<th>Action</th>
-            </tr><?php
-            foreach ($tbl_komentar_data as $tbl_komentar)
-            {
-                ?>
-                <tr>
-			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $tbl_komentar->id_parent_komen ?></td>
-			<td><?php echo $tbl_komentar->id_berita ?></td>
-			<td><?php echo $tbl_komentar->email ?></td>
-			<td><?php echo $tbl_komentar->nama ?></td>
-			<td><?php echo $tbl_komentar->komen ?></td>
-			<td><?php echo $tbl_komentar->captcha ?></td>
-			<td><?php echo $tbl_komentar->tgl_input ?></td>
-			<td><?php echo $tbl_komentar->status ?></td>
-			<td style="text-align:center" width="200px">
-				<?php 
-				echo anchor(site_url('tbl_komentar/read/'.$tbl_komentar->id_komen),'Read'); 
-				echo ' | '; 
-				echo anchor(site_url('tbl_komentar/update/'.$tbl_komentar->id_komen),'Update'); 
-				echo ' | '; 
-				echo anchor(site_url('tbl_komentar/delete/'.$tbl_komentar->id_komen),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
-				?>
-			</td>
-		</tr>
-                <?php
-            }
-            ?>
-        </table>
-        <div class="row">
-            <div class="col-md-6">
-                <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
-	    </div>
-            <div class="col-md-6 text-right">
-                <?php echo $pagination ?>
-            </div>
-        </div>
-    </body>
+        <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+    <?php $this->load->view("admin/_partials/scrolltop.php") ?>
+    <?php $this->load->view("admin/_partials/modal.php") ?>
+    <?php $this->load->view("admin/_partials/js.php") ?>
+    <script>
+        function deleteConfirm(url)
+        {
+            $('#btn-delete').attr('href', url);
+            $('#deleteModal').modal();
+        }
+    </script>
+    <script>
+        $(function () {
+            $("#table_berita").DataTable({
+              "responsive": true,
+              "autoWidth": false,
+            });
+        });
+    </script>
+
+</body>
 </html>

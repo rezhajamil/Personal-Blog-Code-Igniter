@@ -8,6 +8,7 @@ class Tbl_komentar_model extends CI_Model
 
     public $table = 'tbl_komentar';
     public $id = 'id_komen';
+    public $id_parent_komen = 'id_parent_komen';
     public $id_berita = 'id_berita';
     public $order = 'DESC';
 
@@ -28,6 +29,13 @@ class Tbl_komentar_model extends CI_Model
     {
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
+    }
+
+    // get data by id
+    function get_by_id_parent($id_parent,$id_berita)
+    {
+        $this->db->where($this->id_parent_komen, $id_parent)->where($this->id_berita, $id_berita);
+        return $this->db->get($this->table)->result();
     }
 
     function get_by_id_berita($id_berita)
@@ -65,6 +73,13 @@ class Tbl_komentar_model extends CI_Model
 	$this->db->or_like('status', $q);
 	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
+    } 
+
+    function get_join_data($limit, $start = 0, $q = NULL) {
+        $this->db->from($this->table);
+        $this->db->join('tbl_berita','tbl_berita.id_berita=tbl_komentar.id_berita');
+        $this->db->limit($limit, $start);
+        return $this->db->get()->result();
     }
 
     // insert data
